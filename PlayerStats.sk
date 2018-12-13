@@ -1,0 +1,45 @@
+# Skript Stats VERSION 1.0
+# Made by Jer / KoekPudding
+# DONT EDIT THE SKRIPT IF U DONT KNOW WHAT YOU'RE DOING!
+
+options:
+	p: &8[&eStats&8]
+	p3: &8[&3Stats&8]
+	
+variables:
+	{kills.%player%} = 0
+	{deaths.%player%} = 0
+	
+on join:
+	if {Stats.Online.%player%} is not set:
+		set {Stats.Online.%player%} to "&aOnline"
+	if {Stats.LastLogin.%player%} is not set:
+		set {Stats.LastLogin.%player%} to "&a%now%"
+	if {Isim.%player%} is not set:
+		set {Isim.%player%} to "%colored player's prefix%%player%"
+on quit:
+	set {Stats.Online.%player%} to "&cDisable"
+	set {Stats.LastLogOut.%player%} to "&c%now%"
+	
+on death:
+	add 1 to {kills.%attacker%}
+	add 1 to {deaths.%victim%}
+		
+command /stats [<text>]:
+	description: Stats System
+	aliases: /st, /sta
+	trigger:
+		if arg 1 is not set:
+			message "&8&m---[ &r%{Isim.%player%}% &8&m]---"
+			message "{@p3} &7Kills&8: &a%{kills.%player%}%"
+			message "{@p3} &7Deaths&8: &c%{deaths.%player%}%"
+			message "{@p3} &7LastLogIn&8: &r%{Stats.LastLogin.%player%}%"
+			message "{@p3} &7LastLogOut&8: &r%{Stats.LastLogOut.%player%}%"
+		else:
+			message "&8&m---[ &r%{Isim.%arg 1%}% &8&m]---"
+			message "{@p3} &7Kills&8: &a%{kills.%arg 1%}%"
+			message "{@p3} &7Deaths&8: &c%{deaths.%arg 1%}%"
+			message "{@p3} &7LastLogIn&8: &r%{Stats.LastLogin.%arg 1%}%"
+			message "{@p3} &7LastLogOut&8: &r%{Stats.LastLogOut.%arg 1%}%"
+			
+			
